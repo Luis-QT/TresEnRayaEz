@@ -6,9 +6,7 @@
 package registro;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.function.Function;
 import model.Jugador;
@@ -93,17 +91,5 @@ public class Puntaje {
            }
            return listaJugador;
        }
-      public static void insertar(Jugador jugador,String archivo){
-          File f ;
-          FileWriter fw ;
-          BufferedReader br ;
-          
-          try{
-              f = new File(archivo);
-              fw = new FileWriter(f);
-              br = new BufferedReader(fw);
-          }catch(){
-              
-          }
-      }
+       
 }

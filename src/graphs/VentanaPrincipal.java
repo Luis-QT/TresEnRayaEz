@@ -118,11 +118,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonPuntuaciones.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
         botonPuntuaciones.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_2.png"))); // NOI18N
         botonPuntuaciones.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
-        botonPuntuaciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonPuntuacionesActionPerformed(evt);
-            }
-        });
         getContentPane().add(botonPuntuaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 210, 60));
 
         boton1vsPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton1vsPc_1_2.png"))); // NOI18N
@@ -207,10 +202,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         String nombre = JOptionPane.showInputDialog(null, "Nombre del jugador :", "Nuevo Jugador", JOptionPane.INFORMATION_MESSAGE);
         jugador = new Jugador(nombre);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void botonPuntuacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPuntuacionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonPuntuacionesActionPerformed
 
     /**
      * @param args the command line arguments

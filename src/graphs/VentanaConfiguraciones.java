@@ -5,22 +5,17 @@
  */
 package graphs;
 
-import com.sun.awt.AWTUtilities;
-
 /**
  *
  * @author GabrielGiancarlo
  */
 public class VentanaConfiguraciones extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form VentanaConfiguraciones
      */
     public VentanaConfiguraciones() {
-        this.setUndecorated(true);
         initComponents();
-        this.setLocationRelativeTo(null);
-        AWTUtilities.setWindowOpaque(this, false); 
     }
 
     /**
@@ -35,9 +30,9 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         botonExit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         botonActSonido = new javax.swing.JButton();
-        botonDesactSonido = new javax.swing.JButton();
         botonResetPuntuaciones = new javax.swing.JButton();
         botonAtras = new javax.swing.JButton();
+        botonDesactSonido = new javax.swing.JButton();
         FondoPrincipal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,17 +73,6 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         });
         getContentPane().add(botonActSonido, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 210, 60));
 
-        botonDesactSonido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_1.png"))); // NOI18N
-        botonDesactSonido.setBorder(null);
-        botonDesactSonido.setBorderPainted(false);
-        botonDesactSonido.setContentAreaFilled(false);
-        botonDesactSonido.setFocusPainted(false);
-        botonDesactSonido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonDesactSonido.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
-        botonDesactSonido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_2.png"))); // NOI18N
-        botonDesactSonido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
-        getContentPane().add(botonDesactSonido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 210, 60));
-
         botonResetPuntuaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonReset_1.png"))); // NOI18N
         botonResetPuntuaciones.setBorder(null);
         botonResetPuntuaciones.setBorderPainted(false);
@@ -116,14 +100,28 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         });
         getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 370, 110, 30));
 
+        botonDesactSonido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_1.png"))); // NOI18N
+        botonDesactSonido.setBorder(null);
+        botonDesactSonido.setBorderPainted(false);
+        botonDesactSonido.setContentAreaFilled(false);
+        botonDesactSonido.setFocusPainted(false);
+        botonDesactSonido.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonDesactSonido.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
+        botonDesactSonido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_2.png"))); // NOI18N
+        botonDesactSonido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
+        getContentPane().add(botonDesactSonido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 210, 60));
+
         FondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo2.png"))); // NOI18N
-        getContentPane().add(FondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(FondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonActSonidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActSonidoActionPerformed
         // TODO add your handling code here:
+
+        this.setVisible(false);
+        new VentanaJuego1vs1().setVisible(true);
 
     }//GEN-LAST:event_botonActSonidoActionPerformed
 
