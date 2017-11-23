@@ -17,10 +17,10 @@ import javax.swing.JTextField;
 public class HiloTemporizador implements Runnable{
     int segundos;
     JTextField muestra;
-    Ventana1vsPc_Nivel_Dificil vista;
+    Ventana1vsPc_Nivel_Medio vista;
     Thread t;
 
-    public HiloTemporizador(int segundos ,JTextField muestra, Ventana1vsPc_Nivel_Dificil vista) {
+    public HiloTemporizador(int segundos ,JTextField muestra, Ventana1vsPc_Nivel_Medio vista) {
         segundos--;
         this.segundos = segundos;
         this.muestra = muestra;

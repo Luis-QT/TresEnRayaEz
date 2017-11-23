@@ -7,22 +7,19 @@ package graphs;
 
 import com.sun.awt.AWTUtilities;
 import java.awt.event.ActionEvent;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import model.Jugador;
 
 /**
  *
  * @author GabrielGiancarlo
  */
 public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
-    Jugador jugador;
-    HiloTemporizador hiloTempo;
+    HiloTemporizadorDificil hiloTempo;
     HiloMusica hiloMusica;
-    private int[] arreglo;
-    private int nivel;
-    MichiProbabilidades michi;
-    private boolean fin;
+    
+    JuegoDificil juego=new JuegoDificil();
+    int [][]ntablero=new int[3][3];
+    int nganador=-1;
     
     public void botonTransparente(){ 
         botonExit.setOpaque(false);
@@ -30,29 +27,92 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         botonExit.setBorderPainted(false);
     }
     
-    
-    public Ventana1vsPc_Nivel_Dificil(Jugador jugador) {
-        michi=new MichiProbabilidades();
-        arreglo=new int[9];
-        nivel=0;
-        fin=false;
+    public void chekGanador(){
+        int uv[]=new int[3];
+        uv=juego.getUltimaPosicion();
+        if(uv[0]==0 && uv[1]==0){
+            boton1.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==0 && uv[1]==1){
+            boton2.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==0 && uv[1]==2){
+            boton3.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==1 && uv[1]==0){
+            boton4.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==1 && uv[1]==1){
+            boton5.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==1 && uv[1]==2){
+            boton6.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==2 && uv[1]==0){
+            boton7.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==2 && uv[1]==1){
+            boton8.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(uv[0]==2 && uv[1]==2){
+            boton9.setText("0");
+            hiloTempo.detener();
+            hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        }
+        if(nganador==0){
+            txtResultados.setText("Has ganado!!!");
+            hiloTempo.detener();
+            if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                reiniciar();//reinicia el juego
+            }else{
+                hiloMusica.detener();
+                this.setVisible(false);
+                new VentanaPrincipal().setVisible(true);
+            }
+        }
+        if(nganador==1){
+            txtResultados.setText("Has sido derrotado :/");
+            hiloTempo.detener();
+            if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                reiniciar();//reinicia el juego
+            }else{
+                hiloMusica.detener();
+                this.setVisible(false);
+                new VentanaPrincipal().setVisible(true);
+            }
+        }
         
-        this.setUndecorated(true);
-        initComponents();
-        this.setLocationRelativeTo(null);
-        AWTUtilities.setWindowOpaque(this, false);
-        this.setVisible(true);
-        this.botonTransparente();
-        
-        hiloTempo = new HiloTemporizador(2, txtTemporizador, this);
-        
-        txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        hiloMusica = new HiloMusica( 126 , "1vs1");
-        this.jugador = jugador;
-        jugador.setJuegaDificil(true);
-        
+        if(nganador==-1){
+            if(juego.tableroCompleto()){
+            txtResultados.setText("Hubo empate.");
+            hiloTempo.detener();
+                if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                    reiniciar();//reinicia el juego
+                }else{
+                    hiloMusica.detener();
+                    this.setVisible(false);
+                    new VentanaPrincipal().setVisible(true);
+                }
+            }
+            
+        }
     }
-    
     public void botonVacio(){
         ActionEvent evt = null;
         if(boton1.getText().equals("")){
@@ -76,113 +136,25 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         }
     }
     
-    public void marcarComputadora(int i){
+    public Ventana1vsPc_Nivel_Dificil() {
         
-        if(i==1){
-            boton1.setText("O");
-        }else if(i==2){
-            boton2.setText("O");
-        }else if(i==3){
-            boton3.setText("O");
-        }else if(i==4){
-            boton4.setText("O");
-        }else if(i==5){
-            boton5.setText("O");
-        }else if(i==6){
-            boton6.setText("O");
-        }else if(i==7){
-            boton7.setText("O");
-        }else if(i==8){
-            boton8.setText("O");
-        }else if(i==9){
-            boton9.setText("O");
-        }
-        hiloTempo.detener();
-        hiloTempo = new HiloTemporizador(2, txtTemporizador, this);
+        this.setUndecorated(true);
+        initComponents();
+        this.setLocationRelativeTo(null);
+        AWTUtilities.setWindowOpaque(this, false);
+        
+        this.botonTransparente();
+        hiloTempo = new HiloTemporizadorDificil(2, txtTemporizador, this);
+        
+        txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        hiloMusica = new HiloMusica( 126 , "1vs1");
     }
-    public void terminoPartida(){
-        String cadena="";
-        if(((boton1.getText().equals(boton2.getText()) && boton2.getText().equals(boton3.getText())) || (boton1.getText().equals(boton4.getText()) && boton4.getText().equals(boton7.getText())) && !boton1.equals("") )){
-            
-            cadena=boton1.getText();
-        }else if(((boton4.getText().equals(boton5.getText()) && boton5.getText().equals(boton6.getText())) || (boton2.getText().equals(boton5.getText()) && boton5.getText().equals(boton8.getText()))||
-                (boton1.getText().equals(boton5.getText()) && boton5.getText().equals(boton9.getText()))|| (boton3.getText().equals(boton5.getText()) && boton5.getText().equals(boton7.getText()))) && !boton5.equals("")  ){
-            cadena=boton5.getText();
-        }else if(((boton7.getText().equals(boton8.getText()) && boton8.getText().equals(boton9.getText())) || (boton3.getText().equals(boton6.getText()) && boton6.getText().equals(boton9.getText())) ) && !boton9.equals("") ){
-            cadena=boton9.getText();
-        }
-        if(cadena.equals("X")){
-            hiloTempo.detener();
-            JOptionPane.showMessageDialog(null, "Gano el Jugador");
-            this.fin=true;
-        }else if(cadena.equals("O")){
-            hiloTempo.detener();
-            JOptionPane.showMessageDialog(null, "Gano la Computadora");
-            this.fin=true;
-        }
-        if(cadena.equals("")&&!boton1.getText().equals("") && !boton2.getText().equals("") &&!boton3.getText().equals("")&&
-                !boton4.getText().equals("")&&!boton5.getText().equals("")&&!boton6.getText().equals("")&&
-                !boton7.getText().equals("")&&!boton8.getText().equals("")&&!boton9.getText().equals("")){
-            hiloTempo.detener();
-            txtTemporizador.setText("00:000");
-            JOptionPane.showMessageDialog(null, "Empate");
-            this.fin=true;
-        }
-    }
-    public int cuidadoConElJugador(){
-        if(boton4.getText().equals(boton7.getText()) && boton4.getText().equals("X") && boton1.getText().equals("")){
-            return 1;
-        }else if(boton5.getText().equals(boton8.getText()) && boton5.getText().equals("X")&& boton2.getText().equals("")){
-            return 2;
-        }else if(boton6.getText().equals(boton9.getText()) && boton6.getText().equals("X")&& boton3.getText().equals("")){
-            return 3;
-        }else if(boton1.getText().equals(boton7.getText()) && boton1.getText().equals("X")&& boton4.getText().equals("")){
-            return 4;
-        }else if(boton2.getText().equals(boton8.getText()) && boton2.getText().equals("X")&& boton5.getText().equals("")){
-            return 5;
-        }else if(boton3.getText().equals(boton9.getText()) && boton3.getText().equals("X")&& boton6.getText().equals("")){
-            return 6;
-        }else if(boton1.getText().equals(boton4.getText()) && boton1.getText().equals("X")&& boton7.getText().equals("")){
-            return 7;
-        }else if(boton2.getText().equals(boton5.getText()) && boton2.getText().equals("X")&& boton8.getText().equals("")){
-            return 8;
-        }else if(boton3.getText().equals(boton6.getText()) && boton3.getText().equals("X")&& boton9.getText().equals("")){
-            return 9;
-        }else if(boton2.getText().equals(boton3.getText()) && boton2.getText().equals("X")&& boton1.getText().equals("")){
-            return 1;
-        }else if(boton1.getText().equals(boton3.getText()) && boton1.getText().equals("X")&& boton2.getText().equals("")){
-            return 2;
-        }else if(boton1.getText().equals(boton2.getText()) && boton1.getText().equals("X")&& boton3.getText().equals("")){
-            return 3;
-        }else if(boton5.getText().equals(boton6.getText()) && boton5.getText().equals("X")&& boton4.getText().equals("")){
-            return 4;
-        }else if(boton4.getText().equals(boton6.getText()) && boton4.getText().equals("X")&& boton5.getText().equals("")){
-            return 5;
-        }else if(boton4.getText().equals(boton5.getText()) && boton4.getText().equals("X")&& boton6.getText().equals("")){
-            return 6;
-        }else if(boton8.getText().equals(boton9.getText()) && boton8.getText().equals("X")&& boton7.getText().equals("")){
-            return 7;
-        }else if(boton7.getText().equals(boton9.getText()) && boton7.getText().equals("X")&& boton8.getText().equals("")){
-            return 8;
-        }else if(boton7.getText().equals(boton8.getText()) && boton7.getText().equals("X")&& boton9.getText().equals("")){
-            return 9;
-        }else if(boton5.getText().equals(boton9.getText()) && boton5.getText().equals("X")&& boton1.getText().equals("")){
-            return 1;
-        }else if(boton1.getText().equals(boton9.getText()) && boton1.getText().equals("X")&& boton5.getText().equals("")){
-            return 5;
-        }else if(boton1.getText().equals(boton5.getText()) && boton1.getText().equals("X")&& boton9.getText().equals("")){
-            return 9;
-        }else if(boton5.getText().equals(boton7.getText()) && boton5.getText().equals("X")&& boton3.getText().equals("")){
-            return 3;
-        }else if(boton3.getText().equals(boton7.getText()) && boton3.getText().equals("X")&& boton5.getText().equals("")){
-            return 5;
-        }else if(boton3.getText().equals(boton5.getText()) && boton3.getText().equals("X")&& boton7.getText().equals("")){
-            return 7;
-        }else{
-            return 0;
-        }
-    }
-    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -194,17 +166,17 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton4 = new javax.swing.JButton();
         boton5 = new javax.swing.JButton();
         boton6 = new javax.swing.JButton();
-        boton8 = new javax.swing.JButton();
         boton7 = new javax.swing.JButton();
+        boton8 = new javax.swing.JButton();
         boton9 = new javax.swing.JButton();
-        botonExit = new javax.swing.JButton();
-        FondoTablaJL = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtResultados = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtTemporizador = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        FondoTablaJL = new javax.swing.JLabel();
+        botonExit = new javax.swing.JButton();
         FondoJL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -225,14 +197,12 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 botonAtrasActionPerformed(evt);
             }
         });
-        getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 110, 30));
+        getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 110, 30));
 
-        boton1.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton1.setBorder(null);
         boton1.setBorderPainted(false);
         boton1.setContentAreaFilled(false);
-        boton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boton1.setFocusPainted(false);
         boton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
@@ -243,9 +213,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 73, 70));
+        getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 70));
 
-        boton2.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton2.setBorder(null);
         boton2.setBorderPainted(false);
@@ -260,9 +229,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 73, 70));
+        getContentPane().add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, 70));
 
-        boton3.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton3.setBorder(null);
         boton3.setBorderPainted(false);
@@ -277,9 +245,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 73, 70));
+        getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, 70));
 
-        boton4.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton4.setBorder(null);
         boton4.setBorderPainted(false);
@@ -294,9 +261,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 73, 70));
+        getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, 70));
 
-        boton5.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton5.setBorder(null);
         boton5.setBorderPainted(false);
@@ -311,9 +277,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 73, 70));
+        getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, 70));
 
-        boton6.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton6.setBorder(null);
         boton6.setBorderPainted(false);
@@ -328,26 +293,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 73, 70));
+        getContentPane().add(boton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, 70));
 
-        boton8.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
-        boton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
-        boton8.setBorder(null);
-        boton8.setBorderPainted(false);
-        boton8.setContentAreaFilled(false);
-        boton8.setFocusPainted(false);
-        boton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        boton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        boton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
-        boton8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        boton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boton8ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(boton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 73, 70));
-
-        boton7.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton7.setBorder(null);
         boton7.setBorderPainted(false);
@@ -362,9 +309,24 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton7ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 73, 70));
+        getContentPane().add(boton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, 70));
 
-        boton9.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
+        boton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
+        boton8.setBorder(null);
+        boton8.setBorderPainted(false);
+        boton8.setContentAreaFilled(false);
+        boton8.setFocusPainted(false);
+        boton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
+        boton8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, -1, 70));
+
         boton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton9.setBorder(null);
         boton9.setBorderPainted(false);
@@ -379,35 +341,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
                 boton9ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 73, 70));
+        getContentPane().add(boton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, -1, 70));
 
-        botonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB.png"))); // NOI18N
-        botonExit.setBorder(null);
-        botonExit.setBorderPainted(false);
-        botonExit.setContentAreaFilled(false);
-        botonExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        botonExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonExit.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB3_2.png"))); // NOI18N
-        botonExit.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB2.png"))); // NOI18N
-        botonExit.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB3_2.png"))); // NOI18N
-        botonExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonExitActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 35, 25, 25));
-
-        FondoTablaJL.setForeground(new java.awt.Color(255, 255, 255));
-        FondoTablaJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo3.png"))); // NOI18N
-        FondoTablaJL.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(FondoTablaJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
-
-        jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(0, 255, 102));
-        jTextArea1.setRows(5);
-        jTextArea1.setText("Te mamaste :v\n");
-        jScrollPane1.setViewportView(jTextArea1);
+        txtResultados.setBackground(new java.awt.Color(0, 0, 0));
+        txtResultados.setColumns(20);
+        txtResultados.setForeground(new java.awt.Color(0, 255, 102));
+        txtResultados.setRows(5);
+        txtResultados.setText("Te mamaste :v\n");
+        jScrollPane1.setViewportView(txtResultados);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 210, 240));
 
@@ -456,6 +397,27 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 160, -1));
 
+        FondoTablaJL.setForeground(new java.awt.Color(255, 255, 255));
+        FondoTablaJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo3.png"))); // NOI18N
+        FondoTablaJL.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(FondoTablaJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+
+        botonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB.png"))); // NOI18N
+        botonExit.setBorder(null);
+        botonExit.setBorderPainted(false);
+        botonExit.setContentAreaFilled(false);
+        botonExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        botonExit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonExit.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB3_2.png"))); // NOI18N
+        botonExit.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB2.png"))); // NOI18N
+        botonExit.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB3_2.png"))); // NOI18N
+        botonExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonExitActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 35, 25, 25));
+
         FondoJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo2.png"))); // NOI18N
         getContentPane().add(FondoJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -469,7 +431,7 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
 
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
         // TODO add your handling code here:
-        hiloMusica.detener();
+
         this.setVisible(false);
         new VentanaPrincipal().setVisible(true);
     }//GEN-LAST:event_botonAtrasActionPerformed
@@ -479,236 +441,111 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTemporizadorActionPerformed
 
     private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
-        if(boton1.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton1.getText().equals("")){
             boton1.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=1;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(0,0);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton1ActionPerformed
 
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
-        if(boton2.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton2.getText().equals("")){
             boton2.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=2;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(0,1);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
-        
     }//GEN-LAST:event_boton2ActionPerformed
 
     private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
-        if(boton3.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton3.getText().equals("")){
             boton3.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=3;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(0,2);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton3ActionPerformed
 
     private void boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton4ActionPerformed
-        if(boton4.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton4.getText().equals("")){
             boton4.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=4;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(1,0);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton4ActionPerformed
 
     private void boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton5ActionPerformed
-        if(boton5.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton5.getText().equals("")){
             boton5.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=5;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(1,1);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton5ActionPerformed
 
     private void boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton6ActionPerformed
-        if(boton6.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton6.getText().equals("")){
             boton6.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=6;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(1,2);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton6ActionPerformed
 
-    private void boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton8ActionPerformed
-        if(boton8.getText().equals("") && !this.fin){
-            boton8.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=8;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
-        }
-    }//GEN-LAST:event_boton8ActionPerformed
-
     private void boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton7ActionPerformed
-        if(boton7.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton7.getText().equals("")){
             boton7.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=7;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(2,0);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton7ActionPerformed
 
+    private void boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton8ActionPerformed
+        // TODO add your handling code here:
+        if(boton8.getText().equals("")){
+            boton8.setText("X");
+            juego.pulsaBoton(2,1);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton8ActionPerformed
+
     private void boton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton9ActionPerformed
-        if(boton9.getText().equals("") && !this.fin){
+        // TODO add your handling code here:
+        if(boton9.getText().equals("")){
             boton9.setText("X");
-            this.terminoPartida();
-            nivel++;
-            this.arreglo[nivel-1]=9;
-            
-            
-            if(!this.fin){
-                int vaAGanar=this.cuidadoConElJugador();
-                if(vaAGanar!=0){
-                    marcarComputadora(vaAGanar);
-                    nivel++;
-                    this.arreglo[nivel-1]=vaAGanar;
-                }else{
-                    int lugar=michi.obtenerCasillaElegida(arreglo, nivel);
-                    nivel++;
-                    marcarComputadora(lugar);
-                    this.arreglo[nivel-1]=lugar;
-                }
-                this.terminoPartida();
-            }
+            juego.pulsaBoton(2,2);
+            nganador=juego.ganarPartida();
+            chekGanador();
         }
     }//GEN-LAST:event_boton9ActionPerformed
+    private void reiniciar() {                                          
 
+        juego = new JuegoDificil();
+        juego.empezarPartida();
+        ntablero = juego.getTablero();
+        nganador = -1;
+        boton1.setText("");
+        boton2.setText("");
+        boton3.setText("");
+        boton4.setText("");
+        boton5.setText("");
+        boton6.setText("");
+        boton7.setText("");
+        boton8.setText("");
+        boton9.setText("");
+        txtResultados.setText("");
+    }
     
     /**
      * @param args the command line arguments
@@ -765,7 +602,7 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtResultados;
     private javax.swing.JTextField txtTemporizador;
     // End of variables declaration//GEN-END:variables
 }

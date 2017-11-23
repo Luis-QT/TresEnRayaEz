@@ -170,13 +170,13 @@ public class Ventana1vsPc_Niveles extends javax.swing.JFrame {
     private void botonNivelMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNivelMedioActionPerformed
         // TODO add your handling code here:
         this.setVisible(false); 
-        new Ventana1vsPc_Nivel_Medio().setVisible(true); 
+        new Ventana1vsPc_Nivel_Medio(jugador).setVisible(true); 
     }//GEN-LAST:event_botonNivelMedioActionPerformed
 
     private void botonNivelDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNivelDificilActionPerformed
         // TODO add your handling code here:
         this.setVisible(false); 
-        new Ventana1vsPc_Nivel_Dificil(jugador).setVisible(true);
+        new Ventana1vsPc_Nivel_Dificil().setVisible(true);
     }//GEN-LAST:event_botonNivelDificilActionPerformed
 
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
