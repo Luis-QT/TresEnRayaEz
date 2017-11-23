@@ -599,11 +599,11 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     }//GEN-LAST:event_boton6ActionPerformed
 
     private void boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton8ActionPerformed
-        if(boton7.getText().equals("") && !this.fin){
-            boton7.setText("X");
+        if(boton8.getText().equals("") && !this.fin){
+            boton8.setText("X");
             this.terminoPartida();
             nivel++;
-            this.arreglo[nivel-1]=7;
+            this.arreglo[nivel-1]=8;
             
             
             if(!this.fin){
@@ -624,11 +624,11 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     }//GEN-LAST:event_boton8ActionPerformed
 
     private void boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton7ActionPerformed
-        if(boton8.getText().equals("") && !this.fin){
-            boton8.setText("X");
+        if(boton7.getText().equals("") && !this.fin){
+            boton7.setText("X");
             this.terminoPartida();
             nivel++;
-            this.arreglo[nivel-1]=8;
+            this.arreglo[nivel-1]=7;
             
             
             if(!this.fin){

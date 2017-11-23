@@ -5,19 +5,26 @@
  */
 package graphs;
 
+import com.sun.awt.AWTUtilities;
+
 /**
  *
  * @author GabrielGiancarlo
  */
 public class VentanaConfiguraciones extends javax.swing.JFrame {
-    
-    /**
-     * Creates new form VentanaConfiguraciones
-     */
+    private boolean activo;
+    private VentanaPrincipal ventanaPrincipal;
     public VentanaConfiguraciones() {
+        this.setUndecorated(true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        AWTUtilities.setWindowOpaque(this, false);
+        activo=true;
     }
-
+    
+    public void setVentanaPrincipal(VentanaPrincipal ventanaPrincipal){
+        this.ventanaPrincipal=ventanaPrincipal;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,6 +116,11 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         botonDesactSonido.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
         botonDesactSonido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_2.png"))); // NOI18N
         botonDesactSonido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonDesacSon_3.png"))); // NOI18N
+        botonDesactSonido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonDesactSonidoActionPerformed(evt);
+            }
+        });
         getContentPane().add(botonDesactSonido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, 210, 60));
 
         FondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo2.png"))); // NOI18N
@@ -119,9 +131,11 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
 
     private void botonActSonidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActSonidoActionPerformed
         // TODO add your handling code here:
-
-        this.setVisible(false);
-        new VentanaJuego1vs1().setVisible(true);
+        if(activo==false){
+            ventanaPrincipal.setHiloMusica(new HiloMusica( 28 , "intro"));
+              activo=true;
+        }
+        
 
     }//GEN-LAST:event_botonActSonidoActionPerformed
 
@@ -134,8 +148,13 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         this.setVisible(false);
-        new VentanaPrincipal().setVisible(true);
+        ventanaPrincipal.setVisible(true);
     }//GEN-LAST:event_botonAtrasActionPerformed
+
+    private void botonDesactSonidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDesactSonidoActionPerformed
+        ventanaPrincipal.hiloMusica.detener();
+        activo=false;
+    }//GEN-LAST:event_botonDesactSonidoActionPerformed
 
     /**
      * @param args the command line arguments
