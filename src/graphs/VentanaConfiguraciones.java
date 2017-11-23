@@ -5,19 +5,26 @@
  */
 package graphs;
 
+import com.sun.awt.AWTUtilities;
+
 /**
  *
  * @author GabrielGiancarlo
  */
 public class VentanaConfiguraciones extends javax.swing.JFrame {
-    
-    /**
-     * Creates new form VentanaConfiguraciones
-     */
+    private boolean activo;
+    private VentanaPrincipal ventanaPrincipal;
     public VentanaConfiguraciones() {
+        this.setUndecorated(true);
         initComponents();
+        this.setLocationRelativeTo(null);
+        AWTUtilities.setWindowOpaque(this, false);
+        activo=true;
     }
-
+    
+    public void setVentanaPrincipal(VentanaPrincipal ventanaPrincipal){
+        this.ventanaPrincipal=ventanaPrincipal;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,8 +130,12 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonActSonidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActSonidoActionPerformed
-        this.setVisible(false);
-        new VentanaJuego1vs1().setVisible(true);
+
+        if(activo==false){
+            ventanaPrincipal.setHiloMusica(new HiloMusica( 28 , "intro"));
+              activo=true;
+        }
+        
 
     }//GEN-LAST:event_botonActSonidoActionPerformed
 
@@ -137,11 +148,13 @@ public class VentanaConfiguraciones extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         this.setVisible(false);
-        new VentanaPrincipal().setVisible(true);
+        ventanaPrincipal.setVisible(true);
     }//GEN-LAST:event_botonAtrasActionPerformed
 
     private void botonDesactSonidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDesactSonidoActionPerformed
-        // TODO add your handling code here:
+
+        ventanaPrincipal.hiloMusica.detener();
+        activo=false;
     }//GEN-LAST:event_botonDesactSonidoActionPerformed
 
     /**
