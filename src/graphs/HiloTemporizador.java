@@ -5,6 +5,8 @@
  */
 package graphs;
 
+import java.awt.Color;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -15,11 +17,14 @@ import javax.swing.JTextField;
 public class HiloTemporizador implements Runnable{
     int segundos;
     JTextField muestra;
+    JButton boton;
     Thread t;
 
-    public HiloTemporizador(int segundos ,JTextField muestra) {
+    public HiloTemporizador(int segundos ,JTextField muestra, JButton boton) {
+        segundos--;
         this.segundos = segundos;
         this.muestra = muestra;
+        this.boton = boton;
         t = new Thread(this);
         t.start();
     }
@@ -30,13 +35,16 @@ public class HiloTemporizador implements Runnable{
             for(int i=segundos;i>=0;i--){
                 for(int j=999;j>=0;j--){
                     muestra.setText(i+":"+mili(j));
+                    if(i==0 && j==0){
+                        boton.setText("x");
+                        boton.setForeground(Color.red);
+                    }
                     Thread.sleep(1);
                 }
             }    
         }catch(InterruptedException e){
         }
     }
-    
     
     
     private String mili(int m){

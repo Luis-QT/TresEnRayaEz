@@ -12,7 +12,8 @@ import com.sun.awt.AWTUtilities;
  * @author GabrielGiancarlo
  */
 public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
-    HiloTemporizador hilo;
+    HiloTemporizador hiloTempo;
+    HiloMusica hiloMusica;
     /**
      * Creates new form Ventana
      */
@@ -25,14 +26,16 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     
     
     public Ventana1vsPc_Nivel_Dificil() {
-        
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         AWTUtilities.setWindowOpaque(this, false);
-        
+        this.setVisible(true);
         this.botonTransparente();
-        hilo = new HiloTemporizador(10, txtTemporizador);
+        hiloTempo = new HiloTemporizador(10, txtTemporizador, this.boton5);
+        txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        hiloMusica = new HiloMusica( 126 , "1vs1");
+        
     }
 
     /**
@@ -51,11 +54,11 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton4 = new javax.swing.JButton();
         boton5 = new javax.swing.JButton();
         boton6 = new javax.swing.JButton();
-        boton7 = new javax.swing.JButton();
         boton8 = new javax.swing.JButton();
+        boton7 = new javax.swing.JButton();
         boton9 = new javax.swing.JButton();
-        FondoTablaJL = new javax.swing.JLabel();
         botonExit = new javax.swing.JButton();
+        FondoTablaJL = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
@@ -84,17 +87,25 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         });
         getContentPane().add(botonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 110, 30));
 
+        boton1.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton1.setBorder(null);
         boton1.setBorderPainted(false);
         boton1.setContentAreaFilled(false);
+        boton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boton1.setFocusPainted(false);
         boton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 70));
+        boton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 73, 70));
 
+        boton2.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton2.setBorder(null);
         boton2.setBorderPainted(false);
@@ -104,8 +115,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, 70));
+        boton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 73, 70));
 
+        boton3.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton3.setBorder(null);
         boton3.setBorderPainted(false);
@@ -115,8 +132,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, 70));
+        boton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 73, 70));
 
+        boton4.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton4.setBorder(null);
         boton4.setBorderPainted(false);
@@ -126,8 +149,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton4.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, 70));
+        boton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, 73, 70));
 
+        boton5.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton5.setBorder(null);
         boton5.setBorderPainted(false);
@@ -137,8 +166,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton5.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, 70));
+        boton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 73, 70));
 
+        boton6.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton6.setBorder(null);
         boton6.setBorderPainted(false);
@@ -148,19 +183,14 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton6.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton6.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, 70));
+        boton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 73, 70));
 
-        boton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
-        boton7.setBorder(null);
-        boton7.setBorderPainted(false);
-        boton7.setContentAreaFilled(false);
-        boton7.setFocusPainted(false);
-        boton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        boton7.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        boton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
-        boton7.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, 70));
-
+        boton8.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton8.setBorder(null);
         boton8.setBorderPainted(false);
@@ -170,8 +200,31 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton8.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton8.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, -1, 70));
+        boton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton8ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, 73, 70));
 
+        boton7.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
+        boton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
+        boton7.setBorder(null);
+        boton7.setBorderPainted(false);
+        boton7.setContentAreaFilled(false);
+        boton7.setFocusPainted(false);
+        boton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton7.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
+        boton7.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 73, 70));
+
+        boton9.setFont(new java.awt.Font("Tekton Pro", 0, 24)); // NOI18N
         boton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
         boton9.setBorder(null);
         boton9.setBorderPainted(false);
@@ -181,12 +234,12 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         boton9.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton9.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton9.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
-        getContentPane().add(boton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, -1, 70));
-
-        FondoTablaJL.setForeground(new java.awt.Color(255, 255, 255));
-        FondoTablaJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo3.png"))); // NOI18N
-        FondoTablaJL.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        getContentPane().add(FondoTablaJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+        boton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton9ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 73, 70));
 
         botonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB.png"))); // NOI18N
         botonExit.setBorder(null);
@@ -204,6 +257,11 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         });
         getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 35, 25, 25));
 
+        FondoTablaJL.setForeground(new java.awt.Color(255, 255, 255));
+        FondoTablaJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo3.png"))); // NOI18N
+        FondoTablaJL.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(FondoTablaJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+
         jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
         jTextArea1.setColumns(20);
         jTextArea1.setForeground(new java.awt.Color(0, 255, 102));
@@ -217,11 +275,15 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/icons8_Alarm_Clock_30px.png"))); // NOI18N
 
+        txtTemporizador.setEditable(false);
         txtTemporizador.setBackground(new java.awt.Color(0, 0, 0));
         txtTemporizador.setFont(new java.awt.Font("Monospaced", 1, 18)); // NOI18N
         txtTemporizador.setForeground(new java.awt.Color(0, 255, 0));
         txtTemporizador.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTemporizador.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txtTemporizador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 255, 51));
+        txtTemporizador.setEnabled(false);
         txtTemporizador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTemporizadorActionPerformed(evt);
@@ -267,7 +329,7 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
 
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
         // TODO add your handling code here:
-
+        hiloMusica.detener();
         this.setVisible(false);
         new VentanaPrincipal().setVisible(true);
     }//GEN-LAST:event_botonAtrasActionPerformed
@@ -275,6 +337,42 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     private void txtTemporizadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemporizadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTemporizadorActionPerformed
+
+    private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton1ActionPerformed
+
+    private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton2ActionPerformed
+
+    private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton3ActionPerformed
+
+    private void boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton4ActionPerformed
+
+    private void boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton5ActionPerformed
+
+    private void boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton6ActionPerformed
+
+    private void boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton8ActionPerformed
+
+    private void boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton7ActionPerformed
+
+    private void boton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boton9ActionPerformed
 
     
     /**

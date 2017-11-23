@@ -12,7 +12,9 @@ import com.sun.awt.AWTUtilities;
  * @author GabrielGiancarlo
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
+    
+    HiloMusica hiloMusica;
+    
     /**
      * Creates new form VentanaPrincipal
      */
@@ -48,7 +50,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         AWTUtilities.setWindowOpaque(this, false);
         
         this.botonTransparente();
-        
+        hiloMusica = new HiloMusica( 28 , "intro");
     }
 
     /**
@@ -157,7 +159,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void boton1vs1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1vs1ActionPerformed
         // TODO add your handling code here:
-        
+        hiloMusica.detener();
         this.setVisible(false); 
         new VentanaJuego1vs1().setVisible(true);
         
@@ -165,7 +167,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void boton1vsPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1vsPcActionPerformed
         // TODO add your handling code here:
-        
+        hiloMusica.detener();
         this.setVisible(false); 
         new Ventana1vsPc_Niveles().setVisible(true);
 
