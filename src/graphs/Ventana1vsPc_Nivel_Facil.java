@@ -6,6 +6,9 @@
 package graphs;
 
 import com.sun.awt.AWTUtilities;
+import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,9 +16,12 @@ import com.sun.awt.AWTUtilities;
  */
 public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Ventana
-     */
+    JuegoFacil juego = new JuegoFacil();
+    int [][]ntablero = new int[3][3];
+    int nganador = -1;
+    
+    public Color colorX = Color.red;//indica el color de la letra X
+    public Color colorO = Color.blue;//indica el color de la letra O
     
     public void botonTransparente(){ 
         botonExit.setOpaque(false);
@@ -33,8 +39,103 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         
         this.botonTransparente();
         
+        juego.empezarPartida();
+        ntablero = juego.getTablero();
+        
     }
+    
+    public void marcar(JButton boton, String dato, Color col){
+        boton.setText(dato);
+        boton.setForeground(col);
+    }
+    
+    public void chekGanador(){
+        int uv[] = new int[2];
+        uv = juego.getUltimaPosicion();
+        if(uv[0]==0 && uv[1]==0){
+            //boton1.setText("0");
+            marcar(boton1, "0", colorO);
+        }
+        if(uv[0]==0 && uv[1]==1){
+            //boton2.setText("0");
+            marcar(boton2, "0", colorO);
+        }
+        if(uv[0]==0 && uv[1]==2){
+            //boton3.setText("0");
+            marcar(boton3, "0", colorO);
+        }
+        if(uv[0]==1 && uv[1]==0){
+            //boton4.setText("0");
+            marcar(boton4, "0", colorO);
+        }
+        if(uv[0]==1 && uv[1]==1){
+            //boton5.setText("0");
+            marcar(boton5, "0", colorO);
+        }
+        if(uv[0]==1 && uv[1]==2){
+            //boton6.setText("0");
+            marcar(boton6, "0", colorO);
+        }
+        if(uv[0]==2 && uv[1]==0){
+            //boton7.setText("0");
+            marcar(boton7, "0", colorO);
+        }
+        if(uv[0]==2 && uv[1]==1){
+            //boton8.setText("0");
+            marcar(boton8, "0", colorO);
+        }
+        if(uv[0]==2 && uv[1]==2){
+            //boton9.setText("0");
+            marcar(boton9, "0", colorO);
+        }
+        if(nganador==0){
+            textComentarios.setText("Has ganado!!!");
+            if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                reiniciar();//reinicia el juego
+            }else{
+                this.setVisible(false);
+                new VentanaPrincipal().setVisible(true);
+            }
+        }
+        if(nganador==1){
+            textComentarios.setText("Has sido derrotado :/");
+            if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                reiniciar();//reinicia el juego
+            }else{
+                this.setVisible(false);
+                new VentanaPrincipal().setVisible(true);
+            }
+        }
+        if(nganador==-1){
+            if(juego.tableroCompleto()){
+                textComentarios.setText("Hubo empate.");
+            
+                if(JOptionPane.showConfirmDialog(null, "Desea iniciar un nuevo juego? ") == 0){
+                    reiniciar();//reinicia el juego
+                }else{
+                    this.setVisible(false);
+                    new VentanaPrincipal().setVisible(true);
+                }
+            }
+        }
+    }
+    private void reiniciar() {                                          
 
+        juego = new JuegoFacil();
+        juego.empezarPartida();
+        ntablero = juego.getTablero();
+        nganador = -1;
+        boton1.setText("");
+        boton2.setText("");
+        boton3.setText("");
+        boton4.setText("");
+        boton5.setText("");
+        boton6.setText("");
+        boton7.setText("");
+        boton8.setText("");
+        boton9.setText("");
+        textComentarios.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +158,7 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         FondoTablaJL = new javax.swing.JLabel();
         botonExit = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textComentarios = new javax.swing.JTextArea();
         FondoJL = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,6 +190,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton1.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 70));
 
         boton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -100,6 +206,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, 70));
 
         boton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -111,6 +222,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton3.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton3.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, 70));
 
         boton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -122,6 +238,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton4.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton4.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 200, -1, 70));
 
         boton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -133,6 +254,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton5.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, 70));
 
         boton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -144,6 +270,11 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         boton6.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
         boton6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_2.png"))); // NOI18N
         boton6.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_3.png"))); // NOI18N
+        boton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton6ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, -1, 70));
 
         boton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cuadroM_1.png"))); // NOI18N
@@ -200,11 +331,13 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         });
         getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 35, 25, 25));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textComentarios.setBackground(new java.awt.Color(0, 0, 0));
+        textComentarios.setColumns(20);
+        textComentarios.setForeground(new java.awt.Color(0, 255, 0));
+        textComentarios.setRows(5);
+        jScrollPane1.setViewportView(textComentarios);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 180, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 180, 240));
 
         FondoJL.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo2.png"))); // NOI18N
         getContentPane().add(FondoJL, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -223,6 +356,66 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
         this.setVisible(false);
         new VentanaPrincipal().setVisible(true);
     }//GEN-LAST:event_botonAtrasActionPerformed
+
+    private void boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton6ActionPerformed
+        if(ntablero[1][2]==-1){
+            //boton6.setText("X");
+            marcar(boton6, "x", colorX);
+            juego.pulsaBoton(1,2);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton6ActionPerformed
+
+    private void boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton5ActionPerformed
+        if(ntablero[1][1]==-1){
+            //boton5.setText("X");
+            marcar(boton5, "x", colorX);
+            juego.pulsaBoton(1,1);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton5ActionPerformed
+
+    private void boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton4ActionPerformed
+        if(ntablero[1][0]==-1){
+            //boton4.setText("X");
+            marcar(boton4, "x", colorX);
+            juego.pulsaBoton(1,0);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton4ActionPerformed
+
+    private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
+        if(ntablero[0][2]==-1){
+            //boton3.setText("X");
+            marcar(boton3, "x", colorX);
+            juego.pulsaBoton(0,2);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton3ActionPerformed
+
+    private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
+        if(ntablero[0][1]==-1){
+            //boton2.setText("X");
+            marcar(boton2, "x", colorX);
+            juego.pulsaBoton(0,1);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton2ActionPerformed
+
+    private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
+        if(ntablero[0][0]==-1){
+            //boton1.setText("X");
+            marcar(boton1, "x", colorX);
+            juego.pulsaBoton(0,0);
+            nganador=juego.ganarPartida();
+            chekGanador();
+        }
+    }//GEN-LAST:event_boton1ActionPerformed
 
     
     /**
@@ -277,6 +470,6 @@ public class Ventana1vsPc_Nivel_Facil extends javax.swing.JFrame {
     private javax.swing.JButton botonAtras;
     private javax.swing.JButton botonExit;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea textComentarios;
     // End of variables declaration//GEN-END:variables
 }

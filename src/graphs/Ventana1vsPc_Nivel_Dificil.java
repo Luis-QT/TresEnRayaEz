@@ -6,6 +6,8 @@
 package graphs;
 
 import com.sun.awt.AWTUtilities;
+import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Jugador;
 
@@ -41,14 +43,41 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         AWTUtilities.setWindowOpaque(this, false);
         this.setVisible(true);
         this.botonTransparente();
-        hiloTempo = new HiloTemporizador(10, txtTemporizador, this.boton5);
+        
+        hiloTempo = new HiloTemporizador(2, txtTemporizador, this);
+        
         txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         hiloMusica = new HiloMusica( 126 , "1vs1");
         this.jugador = jugador;
         jugador.setJuegaDificil(true);
+        
     }
-
+    
+    public void botonVacio(){
+        ActionEvent evt = null;
+        if(boton1.getText().equals("")){
+            boton1ActionPerformed(evt);
+        }else if(boton2.getText().equals("")){
+            boton2ActionPerformed(evt);
+        }else if(boton3.getText().equals("")){
+            boton3ActionPerformed(evt);
+        }else if(boton4.getText().equals("")){
+            boton4ActionPerformed(evt);
+        }else if(boton5.getText().equals("")){
+            boton5ActionPerformed(evt);
+        }else if(boton6.getText().equals("")){
+            boton6ActionPerformed(evt);
+        }else if(boton7.getText().equals("")){
+            boton7ActionPerformed(evt);
+        }else if(boton8.getText().equals("")){
+            boton8ActionPerformed(evt);
+        }else if(boton9.getText().equals("")){
+            boton9ActionPerformed(evt);
+        }
+    }
+    
     public void marcarComputadora(int i){
+        
         if(i==1){
             boton1.setText("O");
         }else if(i==2){
@@ -68,11 +97,13 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         }else if(i==9){
             boton9.setText("O");
         }
-        
+        hiloTempo.detener();
+        hiloTempo = new HiloTemporizador(2, txtTemporizador, this);
     }
     public void terminoPartida(){
         String cadena="";
         if(((boton1.getText().equals(boton2.getText()) && boton2.getText().equals(boton3.getText())) || (boton1.getText().equals(boton4.getText()) && boton4.getText().equals(boton7.getText())) && !boton1.equals("") )){
+            
             cadena=boton1.getText();
         }else if(((boton4.getText().equals(boton5.getText()) && boton5.getText().equals(boton6.getText())) || (boton2.getText().equals(boton5.getText()) && boton5.getText().equals(boton8.getText()))||
                 (boton1.getText().equals(boton5.getText()) && boton5.getText().equals(boton9.getText()))|| (boton3.getText().equals(boton5.getText()) && boton5.getText().equals(boton7.getText()))) && !boton5.equals("")  ){
@@ -81,15 +112,19 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
             cadena=boton9.getText();
         }
         if(cadena.equals("X")){
+            hiloTempo.detener();
             JOptionPane.showMessageDialog(null, "Gano el Jugador");
             this.fin=true;
         }else if(cadena.equals("O")){
+            hiloTempo.detener();
             JOptionPane.showMessageDialog(null, "Gano la Computadora");
             this.fin=true;
         }
         if(cadena.equals("")&&!boton1.getText().equals("") && !boton2.getText().equals("") &&!boton3.getText().equals("")&&
                 !boton4.getText().equals("")&&!boton5.getText().equals("")&&!boton6.getText().equals("")&&
                 !boton7.getText().equals("")&&!boton8.getText().equals("")&&!boton9.getText().equals("")){
+            hiloTempo.detener();
+            txtTemporizador.setText("00:000");
             JOptionPane.showMessageDialog(null, "Empate");
             this.fin=true;
         }

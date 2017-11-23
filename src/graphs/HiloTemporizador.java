@@ -17,14 +17,14 @@ import javax.swing.JTextField;
 public class HiloTemporizador implements Runnable{
     int segundos;
     JTextField muestra;
-    JButton boton;
+    Ventana1vsPc_Nivel_Dificil vista;
     Thread t;
 
-    public HiloTemporizador(int segundos ,JTextField muestra, JButton boton) {
+    public HiloTemporizador(int segundos ,JTextField muestra, Ventana1vsPc_Nivel_Dificil vista) {
         segundos--;
         this.segundos = segundos;
         this.muestra = muestra;
-        this.boton = boton;
+        this.vista = vista;
         t = new Thread(this);
         t.start();
     }
@@ -36,8 +36,7 @@ public class HiloTemporizador implements Runnable{
                 for(int j=999;j>=0;j--){
                     muestra.setText(i+":"+mili(j));
                     if(i==0 && j==0){
-                        boton.setText("x");
-                        boton.setForeground(Color.red);
+                        vista.botonVacio();
                     }
                     Thread.sleep(1);
                 }
@@ -46,7 +45,9 @@ public class HiloTemporizador implements Runnable{
         }
     }
     
-    
+    public void detener(){
+        t.interrupt();
+    }
     private String mili(int m){
         if(1000>m){
             return ""+m;
