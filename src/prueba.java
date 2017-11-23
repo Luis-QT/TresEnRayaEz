@@ -19,5 +19,10 @@ public class prueba {
         ArrayList<Jugador> lista = Puntaje.listaFacil();
         System.out.println("dsfdsf");
         lista.stream().forEach(n->System.out.println(n.getNombre()));
+    
+//            Jugador juega = new Jugador("dsafsadf");
+//            juega.setPuntuacionFacil(5);
+//            Puntaje.insertarFacil(juega);
+
     }
 }

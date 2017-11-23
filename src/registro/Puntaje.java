@@ -6,7 +6,11 @@
 package registro;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.function.Function;
 import model.Jugador;
@@ -17,11 +21,12 @@ import model.Jugador;
  */
 public class Puntaje {
        public static ArrayList<Jugador> listaFacil(){
-           String direccion = "C:\\Users\\LLLL\\Desktop\\TresEnRaya\\src/facil.txt";
            ArrayList<String> lista = new ArrayList();
            ArrayList<Jugador> listaJugador = new ArrayList<>();
            try{
-                BufferedReader bf = new BufferedReader(new FileReader(direccion));
+               File f = new File("facil.txt");
+                FileReader fr = new FileReader(f);
+                BufferedReader bf = new BufferedReader(fr);
                 String temp = "";
                 String bfRead;
                 while((bfRead = bf.readLine()) != null){
@@ -42,11 +47,12 @@ public class Puntaje {
            return listaJugador;
        }
       public static ArrayList<Jugador> listaMedio(){
-           String direccion = "C:\\Users\\LLLL\\Desktop\\TresEnRaya\\src/medio.txt";
            ArrayList<String> lista = new ArrayList();
            ArrayList<Jugador> listaJugador = new ArrayList<>();
            try{
-                BufferedReader bf = new BufferedReader(new FileReader(direccion));
+                File f = new File("medio.txt");
+                FileReader fr = new FileReader(f);
+                BufferedReader bf = new BufferedReader(fr);
                 String temp = "";
                 String bfRead;
                 while((bfRead = bf.readLine()) != null){
@@ -67,11 +73,13 @@ public class Puntaje {
            return listaJugador;
        }
       public static ArrayList<Jugador> listaDificil(){
-           String direccion = "C:\\Users\\LLLL\\Desktop\\TresEnRaya\\src/dificil.txt";
+          
            ArrayList<String> lista = new ArrayList();
            ArrayList<Jugador> listaJugador = new ArrayList<>();
-           try{
-                BufferedReader bf = new BufferedReader(new FileReader(direccion));
+           try{ 
+                File f = new File("dificil.txt");
+                FileReader fr = new FileReader(f);
+                BufferedReader bf = new BufferedReader(fr);
                 String temp = "";
                 String bfRead;
                 while((bfRead = bf.readLine()) != null){
@@ -91,5 +99,97 @@ public class Puntaje {
            }
            return listaJugador;
        }
+       public static void insertarFacil(Jugador jugador){
+            File f;
+            FileWriter w;
+            BufferedWriter bw ;
+            PrintWriter wr;
+            
+            try{
+                f = new File("facil.txt");
+                w = new FileWriter(f,true);
+                wr = new PrintWriter(w);
+                
+                wr.println(jugador.getNombre()+","+jugador.getPuntuacionFacil());
+                wr.close();
+            }catch(Exception e){
+                
+            }
+            
+      }
+       public static void insertarMedio(Jugador jugador){
+            File f;
+            FileWriter w;
+            BufferedWriter bw ;
+            PrintWriter wr;
+            
+            try{
+                f = new File("medio.txt");
+                w = new FileWriter(f,true);
+                wr = new PrintWriter(w);
+                
+                wr.println(jugador.getNombre()+","+jugador.getPuntuacionFacil());
+                wr.close();
+            }catch(Exception e){
+                
+            }
+            
+      }
+       public static void insertarDificil(Jugador jugador){
+            File f;
+            FileWriter w;
+            BufferedWriter bw ;
+            PrintWriter wr;
+            
+            try{
+                f = new File("dificil.txt");
+                w = new FileWriter(f,true);
+                wr = new PrintWriter(w);
+                
+                wr.println(jugador.getNombre()+","+jugador.getPuntuacionFacil());
+                wr.close();
+            }catch(Exception e){
+                
+            }
+            
+      }
        
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
