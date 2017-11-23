@@ -6,12 +6,14 @@
 package graphs;
 
 import com.sun.awt.AWTUtilities;
+import model.Jugador;
 
 /**
  *
  * @author GabrielGiancarlo
  */
 public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
+    Jugador jugador;
     HiloTemporizador hiloTempo;
     HiloMusica hiloMusica;
     /**
@@ -25,7 +27,7 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
     }
     
     
-    public Ventana1vsPc_Nivel_Dificil() {
+    public Ventana1vsPc_Nivel_Dificil(Jugador jugador) {
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -35,7 +37,8 @@ public class Ventana1vsPc_Nivel_Dificil extends javax.swing.JFrame {
         hiloTempo = new HiloTemporizador(10, txtTemporizador, this.boton5);
         txtTemporizador.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         hiloMusica = new HiloMusica( 126 , "1vs1");
-        
+        this.jugador = jugador;
+        jugador.setJuegaDificil(true);
     }
 
     /**

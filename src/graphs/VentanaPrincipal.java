@@ -6,6 +6,8 @@
 package graphs;
 
 import com.sun.awt.AWTUtilities;
+import javax.swing.JOptionPane;
+import model.Jugador;
 
 /**
  *
@@ -14,6 +16,7 @@ import com.sun.awt.AWTUtilities;
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     HiloMusica hiloMusica;
+    Jugador jugador;
     
     /**
      * Creates new form VentanaPrincipal
@@ -51,6 +54,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         
         this.botonTransparente();
         hiloMusica = new HiloMusica( 28 , "intro");
+        jugador = new Jugador("Desconocido");
     }
 
     /**
@@ -68,7 +72,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonPuntuaciones = new javax.swing.JButton();
         boton1vsPc = new javax.swing.JButton();
         botonExit = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         FondoPrincipal = new javax.swing.JLabel();
+        botonPuntuaciones2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -90,7 +96,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 boton1vs1ActionPerformed(evt);
             }
         });
-        getContentPane().add(boton1vs1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 210, 60));
+        getContentPane().add(boton1vs1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 210, 60));
 
         botonOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonOpciones_1_2.png"))); // NOI18N
         botonOpciones.setBorder(null);
@@ -101,7 +107,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonOpciones.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonOpciones_3_2.png"))); // NOI18N
         botonOpciones.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonOpciones_2_2.png"))); // NOI18N
         botonOpciones.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonOpciones_3_2.png"))); // NOI18N
-        getContentPane().add(botonOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 210, 60));
+        getContentPane().add(botonOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 210, 60));
 
         botonPuntuaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_1.png"))); // NOI18N
         botonPuntuaciones.setBorder(null);
@@ -112,7 +118,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonPuntuaciones.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
         botonPuntuaciones.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_2.png"))); // NOI18N
         botonPuntuaciones.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
-        getContentPane().add(botonPuntuaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 310, 210, 60));
+        getContentPane().add(botonPuntuaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 210, 60));
 
         boton1vsPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton1vsPc_1_2.png"))); // NOI18N
         boton1vsPc.setBorder(null);
@@ -128,7 +134,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 boton1vsPcActionPerformed(evt);
             }
         });
-        getContentPane().add(boton1vsPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 210, 60));
+        getContentPane().add(boton1vsPc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 210, 60));
 
         botonExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/exitB.png"))); // NOI18N
         botonExit.setBorder(null);
@@ -146,8 +152,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(botonExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 35, 25, 25));
 
+        jButton1.setText("Nuevo Jugador");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, -1, -1));
+
         FondoPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Fondo2.png"))); // NOI18N
         getContentPane().add(FondoPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        botonPuntuaciones2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_1.png"))); // NOI18N
+        botonPuntuaciones2.setBorder(null);
+        botonPuntuaciones2.setBorderPainted(false);
+        botonPuntuaciones2.setContentAreaFilled(false);
+        botonPuntuaciones2.setFocusPainted(false);
+        botonPuntuaciones2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonPuntuaciones2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
+        botonPuntuaciones2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_2.png"))); // NOI18N
+        botonPuntuaciones2.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/botonPuntuaciones_3.png"))); // NOI18N
+        getContentPane().add(botonPuntuaciones2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 290, 210, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,9 +194,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         hiloMusica.detener();
         this.setVisible(false); 
-        new Ventana1vsPc_Niveles().setVisible(true);
+        new Ventana1vsPc_Niveles(jugador).setVisible(true);
 
     }//GEN-LAST:event_boton1vsPcActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String nombre = JOptionPane.showInputDialog(null, "Nombre del jugador :", "Nuevo Jugador", JOptionPane.INFORMATION_MESSAGE);
+        jugador = new Jugador(nombre);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +245,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonExit;
     private javax.swing.JButton botonOpciones;
     private javax.swing.JButton botonPuntuaciones;
+    private javax.swing.JButton botonPuntuaciones2;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

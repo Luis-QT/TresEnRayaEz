@@ -6,13 +6,14 @@
 package graphs;
 
 import com.sun.awt.AWTUtilities;
+import model.Jugador;
 
 /**
  *
  * @author GabrielGiancarlo
  */
 public class Ventana1vsPc_Niveles extends javax.swing.JFrame {
-
+    Jugador jugador;
     /**
      * Creates new form VentanaPrincipal
      */
@@ -40,13 +41,14 @@ public class Ventana1vsPc_Niveles extends javax.swing.JFrame {
         
     }
     
-    public Ventana1vsPc_Niveles() {
-        
+    public Ventana1vsPc_Niveles(Jugador jugador) {
+        this.jugador = jugador;
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
         AWTUtilities.setWindowOpaque(this, false);
         
+        System.out.println(jugador.getNombre());
         this.botonTransparente();
         
     }
@@ -174,12 +176,11 @@ public class Ventana1vsPc_Niveles extends javax.swing.JFrame {
     private void botonNivelDificilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNivelDificilActionPerformed
         // TODO add your handling code here:
         this.setVisible(false); 
-        new Ventana1vsPc_Nivel_Dificil().setVisible(true);
+        new Ventana1vsPc_Nivel_Dificil(jugador).setVisible(true);
     }//GEN-LAST:event_botonNivelDificilActionPerformed
 
     private void botonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasActionPerformed
         // TODO add your handling code here:
-        
         this.setVisible(false); 
         new VentanaPrincipal().setVisible(true);
         
@@ -223,7 +224,8 @@ public class Ventana1vsPc_Niveles extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Ventana1vsPc_Niveles().setVisible(true);
+                Jugador jugador = null;
+                new Ventana1vsPc_Niveles(jugador).setVisible(true);
             }
         });
     }
